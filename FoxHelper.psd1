@@ -29,7 +29,7 @@ CompanyName = 'Elior Machlev'
 Copyright = '(c) 2021 Elior Machlev. All rights reserved.'
 
 # Module Description
-Description = 'Funcstions and Scripts for Britannica Fox Product'
+Description = 'Functions and Scripts for Britannica Fox Product'
 
 # Minimum PowerShell Version Required
 PowerShellVersion = '5.1'
