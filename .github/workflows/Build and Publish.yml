@@ -29,5 +29,6 @@ jobs:
         env:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
-          Publish-Module -Path .\Module  -NuGetApiKey $env:NUGET_KEY
+          Get-ChildItem -Recurse -Directory
+          #Publish-Module -Path .\Module  -NuGetApiKey $env:NUGET_KEY
         shell: pwsh
