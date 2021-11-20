@@ -20,19 +20,19 @@ ModuleVersion = '1.60'
 GUID = '281ceeef-e8f9-47f8-9058-8bbdd0e65c6a'
 
 # Module Author
-Author = 'Eliorm'
+Author = 'Elior Machlev'
 
 # Company
-CompanyName = 'Eliorm'
+CompanyName = 'Elior Machlev'
 
 # Copyright
-Copyright = '(c) 2021 Eliorm. All rights reserved.'
+Copyright = '(c) 2021 Elior Machlev. All rights reserved.'
 
 # Module Description
-Description = 'Elior Custom Functions'
+Description = 'Funcstions and Scripts for Britannica Fox Product'
 
 # Minimum PowerShell Version Required
-PowerShellVersion = ''
+PowerShellVersion = '5.1'
 
 # Name of Required PowerShell Host
 PowerShellHostName = ''
@@ -50,7 +50,7 @@ CLRVersion = ''
 ProcessorArchitecture = ''
 
 # Required Modules (will load before this module loads)
-RequiredModules = @()
+RequiredModules = @(Export-Excel)
 
 # Required Assemblies
 RequiredAssemblies = @()
