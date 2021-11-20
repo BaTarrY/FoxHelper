@@ -15,3 +15,7 @@
 . $PSScriptRoot\Functions\Misc\Get-ValidIsraelID.ps1
 . $PSScriptRoot\Functions\Strings\Remove-String.ps1
 . $PSScriptRoot\Functions\WebServices\Get-FoxToken.ps1
+
+# Loading ALL SCRIPTS DEFINITIONS:
+. $PSScriptRoot\Scripts\FoxSites\Get-FoxSitesInformation.ps1
+
