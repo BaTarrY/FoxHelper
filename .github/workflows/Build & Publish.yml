@@ -19,5 +19,4 @@ jobs:
           NUGET_KEY: ${{ secrets.NUGET_KEY }}
         shell: pwsh
         run: |
-          ./FoxHelper.ps1 -Path .
           Publish-Module -Path . -NuGetApiKey $env:NUGET_KEY -Verbose
