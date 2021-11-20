@@ -30,8 +30,6 @@ jobs:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
           #Get-ChildItem -Recurse -Directory
-          Import-Module /home/runner/work/FoxHelper/FoxHelper/Module/FoxHelper.psd1 -verbos
-          $ModulePath=$env:PSModulePath
-          $ModulePath=$ModulePath + '/FoxHelper'
-          Publish-Module -Path $ModulePath  -NuGetApiKey $env:NUGET_KEY -verbos
+          Import-Module /home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1 -verbos
+          Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
         shell: pwsh
