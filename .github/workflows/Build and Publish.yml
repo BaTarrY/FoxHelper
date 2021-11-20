@@ -29,5 +29,5 @@ jobs:
         env:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
-          Publish-Module -Path ./Module  -NuGetApiKey $env:NUGET_KEY
+          Publish-Module -Path .\Module  -NuGetApiKey $env:NUGET_KEY
         shell: pwsh
