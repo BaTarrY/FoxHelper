@@ -20,3 +20,4 @@ jobs:
         shell: pwsh
         run: |
           Publish-Module -Path . -NuGetApiKey $env:NUGET_KEY -Verbose
+          
