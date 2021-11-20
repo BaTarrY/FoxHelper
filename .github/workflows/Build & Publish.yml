@@ -10,26 +10,14 @@ on:
       - main
 
 jobs:
-  build:
-    runs-on: ubuntu-18.04
-    name: Update NuGet package
+  publish-to-gallery:
+    runs-on: ubuntu-latest
     steps:
-
-      - name: Checkout repository
-        uses: actions/checkout@v1
-
-      - name: Setup .NET Core @ Latest
-        uses: actions/setup-dotnet@v1
-        with:
-          source-url: https://nuget.pkg.github.com/<organization>/index.json
+      - uses: actions/checkout@v2
+      - name: Build and publish
         env:
-          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
-          
-      - name: Build solution and generate NuGet package
-        run: |  
-          cd  .
-          dotnet pack -c Release -o out  
-
-      - name: Push generated package to GitHub registry
-        run: dotnet nuget push ./FoxHelper/out/*.nupkg --skip-duplicate --no-symbols true
-
+          NUGET_KEY: ${{ secrets.NUGET_KEY }}
+        shell: pwsh
+        run: |
+          ./FoxHelper.ps1 -Path .
+          Publish-Module -Path . -NuGetApiKey $env:NUGET_KEY -Verbose
