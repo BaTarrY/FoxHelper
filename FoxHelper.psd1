@@ -50,7 +50,7 @@ CLRVersion = ''
 ProcessorArchitecture = ''
 
 # Required Modules (will load before this module loads)
-RequiredModules = @(Export-Excel)
+RequiredModules = @(ModuleName = 'Export-Excel')
 
 # Required Assemblies
 RequiredAssemblies = @()
