@@ -18,13 +18,15 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 
 jobs:
-  publish-to-gallery:
+  psgallery_publish:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Build and publish
+      - name: checkout
+        uses: actions/checkout@v2
+        
+      - name: Publishing
         env:
-          NUGET_KEY: ${{ secrets.NUGET_KEY }}
-        shell: pwsh
+         NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
-          Publish-Module -Path .\Module -NuGetApiKey $env:NUGET_KEY -Verbose
+          Publish-Module -Path ((get-item $PSScriptRoot ).parent.parent)/Module -NuGetApiKey $env:NUGET_KEY
+        shell: pwsh
