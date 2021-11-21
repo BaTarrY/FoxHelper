@@ -30,7 +30,7 @@ jobs:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
           install-module ImportExcel -force
-          import-module import-excel
+          import-module ImportExcel
           import-module PowerShellGet
           Import-Module /home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1 -verbos
           $Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
