@@ -51,7 +51,7 @@ PowerShellVersion = '5.1'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-#RequiredModules = @(@{ModuleName = 'ImportExcel'; ModuleVersion = '7.3.1'; })
+RequiredModules = @(@{ModuleName = 'ImportExcel'; ModuleVersion = '7.3.1'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
@@ -97,7 +97,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        # Tags = @()
+        Tags = @('Fox','BKS','Britannica Knowledge Systems','Britannica','WebServices')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/BaTarrY/FoxHelper/blob/756bc59f6b00908a0a2e846241c19610fb966456/LICENSE'
@@ -106,7 +106,7 @@ PrivateData = @{
         ProjectUri = 'https://github.com/BaTarrY/FoxHelper'
 
         # A URL to an icon representing this module.
-        # IconUri = ''
+         IconUri = 'https://www.britannica-ks.com/wp-content/themes/britannica/img/favicon.png'
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
@@ -115,21 +115,19 @@ PrivateData = @{
         # Prerelease = ''
 
         # Flag to indicate whether the module requires explicit user acceptance for install/update/save
-        RequireLicenseAcceptance = $true
+        RequireLicenseAcceptance = $False
 
         # External dependent modules of this module
-        ExternalModuleDependencies = @('Export-Excel')
+        #ExternalModuleDependencies = @('')
 
     } # End of PSData hashtable
 
  } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-# HelpInfoURI = ''
+HelpInfoURI = 'https://github.com/BaTarrY/FoxHelper'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
 
 }
-
-
