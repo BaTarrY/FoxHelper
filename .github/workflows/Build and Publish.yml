@@ -32,10 +32,11 @@ jobs:
           import-module PowerShellGet
           $Version=Find-Module -Name FoxHelper | Select-Object -ExpandProperty Version
           $Version
-          $Revision=($Version.Revision)+1
+          [int]$Revision=($Version.Revision)+1
           $Revision
           $Field = $Version.GetType().GetField('_Revision','static,nonpublic,instance')
-          $Field.SetValue($Version,$Revision)
-          Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -PropertyName ModuleVersion  -Value $Version
-          Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
+          $null=$Field.SetValue($Version,$Revision)
+          $Version
+          #Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -PropertyName ModuleVersion  -Value $Version
+          #Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
         shell: pwsh
