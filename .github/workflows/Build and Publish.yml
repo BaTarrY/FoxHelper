@@ -35,6 +35,6 @@ jobs:
           $Revision=($Version.Revision)+1
           $Field = $Version.GetType().GetField('_Revision','static,nonpublic,instance')
           $Field.SetValue($Version,$Revision)
-          Update-Manifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -PropertyName ModuleVersion  -Value $Version
+          Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -PropertyName ModuleVersion  -Value $Version
           Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
         shell: pwsh
