@@ -30,8 +30,10 @@ jobs:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
           import-module PowerShellGet
-          $Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
+          $Version=Find-Module -Name FoxHelper | Select-Object -ExpandProperty Version
+          $Version
           $Revision=($Version.Revision)+1
+          $Revision
           $Field = $Version.GetType().GetField('_Revision','static,nonpublic,instance')
           $Field.SetValue($Version,$Revision)
           Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -PropertyName ModuleVersion  -Value $Version
