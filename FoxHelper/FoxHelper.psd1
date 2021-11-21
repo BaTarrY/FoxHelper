@@ -97,7 +97,7 @@ PrivateData = @{
     PSData = @{
 
         # Tags applied to this module. These help with module discovery in online galleries.
-        Tags = @('Fox','BKS','Britannica Knowledge Systems','Britannica','WebServices')
+        Tags = @('Fox','BKS','BritannicaKnowledgeSystems','Britannica','WebServices')
 
         # A URL to the license for this module.
         LicenseUri = 'https://github.com/BaTarrY/FoxHelper/blob/756bc59f6b00908a0a2e846241c19610fb966456/LICENSE'
