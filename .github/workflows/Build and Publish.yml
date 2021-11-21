@@ -29,15 +29,21 @@ jobs:
         env:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
+          'Importing Required Modules'
           install-module ImportExcel -force
           import-module ImportExcel
           import-module PowerShellGet
+          'Importing Module'
           Import-Module /home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1 -verbos
-          $Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
-          $Revision=($Version.Revision)+1
-          [string]$Version=$Version
+          'Getting last version from PS Gallery'
+          [string]$Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
+          "Current PSGallery Version is: $Version"
+          [int]$Revision = ($Version.Substring(($Version.lastIndexOf('.'))+1))
+          $Revision+=1
           $Version=$Version.Substring(0, $Version.lastIndexOf('.'))
           $Version=$Version + '.' + $Revision
-          Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -ModuleVersion 2.0.0.2
+          "Updating Module Manifest Version to $Version"
+          Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -ModuleVersion $Version
+          "Attempting Upload of Version $Version to PSGallery"
           Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
         shell: pwsh
