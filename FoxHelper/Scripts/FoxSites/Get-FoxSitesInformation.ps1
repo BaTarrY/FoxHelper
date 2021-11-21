@@ -6,6 +6,11 @@ function Get-FoxSitesInformation
       [Parameter(Mandatory)][ValidateSet('Console', 'QuickReview','HTML', 'Excel','CSV')]$OutputType
     )
 
+$WrinRMStatus=Get-Service -Name WinRM |Select-Object -ExpandProperty Status
+if($WrinRMStatus -eq 'Stopped'){
+    Start-Service -Name WinRM
+  }
+
 if (!($Servers)) {
 $ServersPath=[Environment]::GetFolderPath('MyDocuments')
 $ServersPath=$ServersPath+ '\IISServers.csv'
@@ -27,6 +32,8 @@ $SQLQuery='select value as [FoxVersion],UserDataSourcesNew.ServerName as [LDSSer
 from SystemConfiguration 
 left join UserDataSourcesNew on UserDataSourcesNew.UsersContainerDistinguishedName=''CN=Fox,CN=OuTree,DC=Fox,DC=Bks''
 where SystemConfiguration.property=''version'''
+
+Get-Service -Name WinRM | start-service 
 
 $SitesInfo=Invoke-Command -ComputerName $Servers -Credential $cred  -ScriptBlock{
 ##Remote Start Here
@@ -114,4 +121,7 @@ Switch($OutputType){
       exit}
   'QuickReview'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridView -Title 'Your Fox IIS Sites Information'} 
   }
+  if($WrinRMStatus -eq 'Stopped'){
+    Stop-service -Name WinRM
   }
+}

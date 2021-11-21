@@ -100,13 +100,13 @@ PrivateData = @{
         Tags = @('Fox','BKS','BritannicaKnowledgeSystems','Britannica','WebServices')
 
         # A URL to the license for this module.
-        LicenseUri = 'https://github.com/BaTarrY/FoxHelper/blob/756bc59f6b00908a0a2e846241c19610fb966456/LICENSE'
+        LicenseUri = "$PSScriptRoot\License.txt"
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/BaTarrY/FoxHelper'
 
         # A URL to an icon representing this module.
-         IconUri = 'https://www.britannica-ks.com/wp-content/themes/britannica/img/favicon.png'
+         IconUri = "$PSScriptRoot\Icon\Favicon.ico"
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
@@ -125,7 +125,7 @@ PrivateData = @{
  } # End of PrivateData hashtable
 
 # HelpInfo URI of this module
-HelpInfoURI = 'https://github.com/BaTarrY/FoxHelper'
+HelpInfoURI = 'https://github.com/BaTarrY/FoxHelper/blob/main/README.md'
 
 # Default prefix for commands exported from this module. Override the default prefix using Import-Module -Prefix.
 # DefaultCommandPrefix = ''
