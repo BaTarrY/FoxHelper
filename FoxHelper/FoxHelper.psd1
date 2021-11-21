@@ -108,7 +108,7 @@ PrivateData = @{
 
         # A Path to to an icon representing this module.
         Icon = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/Icon/Favicon.png"
-        #IconURI = "https://britannica-ks.zendesk.com/system/logos/360000053853/favicon.png"
+        IconURI = "https://britannica-ks.zendesk.com/system/logos/360000053853/favicon.png"
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
