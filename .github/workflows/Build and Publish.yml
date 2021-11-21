@@ -29,7 +29,7 @@ jobs:
         env:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
-          install-module import-excel
+          install-module ImportExcel -force
           import-module import-excel
           import-module PowerShellGet
           Import-Module /home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1 -verbos
