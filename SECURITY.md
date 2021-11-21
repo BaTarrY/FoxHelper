@@ -16,4 +16,5 @@ After reciving the notice the owner will try to adress this issue as soon as pos
 
 ## Notice
 I can't guarantee a fix or timeline as this is a personal project.
+
 Saying that, everything will be done to address the issues as soon as possible.
