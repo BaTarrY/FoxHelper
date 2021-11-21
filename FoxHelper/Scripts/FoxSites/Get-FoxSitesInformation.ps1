@@ -86,7 +86,7 @@ $SitesInfo=Invoke-Command -ComputerName $Servers -Credential $cred  -ScriptBlock
 }
 Switch($OutputType){
   'Console'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId' | Format-Table -AutoSize -Force}
-  'HTML'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridHtml\}
+  'HTML'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridHtml}
   'CSV'{
     Add-Type -AssemblyName System.Windows.Forms
     $browser = New-Object -TypeName System.Windows.Forms.FolderBrowserDialog
