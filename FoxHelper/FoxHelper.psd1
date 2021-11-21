@@ -100,13 +100,13 @@ PrivateData = @{
         Tags = @('Fox','BKS','BritannicaKnowledgeSystems','Britannica','WebServices')
 
         # A URL to the license for this module.
-        License = ".\FoxHelper\License.txt"
+        License = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/License.txt"
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/BaTarrY/FoxHelper'
 
         # A Path to to an icon representing this module.
-        Icon = ".\FoxHelper\Icon\Favicon.ico"
+        Icon = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/Icon/Favicon.ico"
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
