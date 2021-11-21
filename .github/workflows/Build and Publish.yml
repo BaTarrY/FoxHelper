@@ -29,5 +29,11 @@ jobs:
         env:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
+          Update-Manifest -Path "C:\Users\eliorm\Documents\GitHub\FoxHelper\FoxHelper\FoxHelper.psd1" -PropertyName ModuleVersion  -Value 1.0.0.0
+          $Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
+          $Revision=($Version.Revision)+1
+          $Field = $Version.GetType().GetField('_Revision','static,nonpublic,instance')
+          $Field.SetValue($Version,$Revision)
+          Update-Manifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -PropertyName ModuleVersion  -Value $Version
           Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
         shell: pwsh
