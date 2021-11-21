@@ -101,12 +101,14 @@ PrivateData = @{
 
         # A URL to the license for this module.
         License = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/License.txt"
+        LicenseURI = "https://github.com/BaTarrY/FoxHelper/blob/main/LICENSE"
 
         # A URL to the main website for this project.
         ProjectUri = 'https://github.com/BaTarrY/FoxHelper'
 
         # A Path to to an icon representing this module.
         Icon = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/Icon/Favicon.ico"
+        IconURI = "https://britannica-ks.zendesk.com/system/logos/360000053853/favicon.ico"
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
