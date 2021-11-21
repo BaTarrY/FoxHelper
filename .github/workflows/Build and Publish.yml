@@ -35,6 +35,6 @@ jobs:
           [string]$Version=$Version
           $Version=$Version.Substring(0, $Version.lastIndexOf('.'))
           $Version=$Version + '.' + $Revision
-          Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -ModuleVersion '2.0.0.0'
+          Update-ModuleManifest -Path '/home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1' -ModuleVersion $Version
           Publish-Module -Path /home/runner/work/FoxHelper/FoxHelper/FoxHelper  -NuGetApiKey $env:NUGET_KEY -verbos
         shell: pwsh
