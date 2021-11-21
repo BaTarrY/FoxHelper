@@ -30,6 +30,7 @@ jobs:
          NUGET_KEY: ${{ secrets.NUGET_KEY }}
         run: |
           import-module PowerShellGet
+          Import-Module /home/runner/work/FoxHelper/FoxHelper/FoxHelper/FoxHelper.psd1 -verbos
           $Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
           $Revision=($Version.Revision)+1
           [string]$Version=$Version
