@@ -107,8 +107,8 @@ PrivateData = @{
         ProjectUri = 'https://github.com/BaTarrY/FoxHelper'
 
         # A Path to to an icon representing this module.
-        Icon = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/Icon/Favicon.ico"
-        IconURI = "https://britannica-ks.zendesk.com/system/logos/360000053853/favicon.ico"
+        Icon = "/home/runner/work/FoxHelper/FoxHelper/FoxHelper/Icon/Favicon.png"
+        #IconURI = "https://britannica-ks.zendesk.com/system/logos/360000053853/favicon.png"
 
         # ReleaseNotes of this module
         # ReleaseNotes = ''
