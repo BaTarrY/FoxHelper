@@ -20,7 +20,7 @@ if(Test-Path -Path $ServersPath){
 }
 Else{  Write-host "Notice: This is a one-time Operation`n" -ForegroundColor Yellow
 'Servers' | Out-File -FilePath $ServersPath
-$Servers=(Read-Host -Prompt 'Enter your IIS Site names - Seperated by Commas (,)').Split(',') 
+$Servers=(Read-Host -Prompt 'Enter your IIS Server names - Seperated by Commas (,)').Split(',') 
 Add-Content -Value $Servers -Path $ServersPath
 }}
 
