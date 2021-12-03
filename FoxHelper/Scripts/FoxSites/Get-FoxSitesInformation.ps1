@@ -74,10 +74,10 @@ $SitesInfo=Invoke-Command -ComputerName $Servers -Credential $cred  -ScriptBlock
         $LDSPort=$SQLResult| Select-Object -ExpandProperty LDSPort
         $Version=$SQLResult| Select-Object -ExpandProperty FoxVersion
         $item = New-Object -TypeName PSObject
+        Add-Member -InputObject $Item -type NoteProperty -Name 'IIS Server' -Value $HostName.ToUpper()
         Add-Member -InputObject $Item -type NoteProperty -Name 'Fox Site' -Value $SiteName.ToUpper()
         Add-Member -InputObject $Item -type NoteProperty -Name 'Site Status' -Value ($Site|Select-Object -ExpandProperty State).ToUpper()
         Add-Member -InputObject $Item -type NoteProperty -Name 'Fox Version' -Value $Version
-        Add-Member -InputObject $Item -type NoteProperty -Name 'IIS Server' -Value $HostName.ToUpper()
         Add-Member -InputObject $Item -type NoteProperty -Name 'Install Location' -Value $InstallLocation.ToUpper()
         Add-Member -InputObject $Item -type NoteProperty -Name 'SQL Server' -Value $SQLInstance.ToUpper()
         Add-Member -InputObject $Item -type NoteProperty -Name 'Fox DataBase' -Value $DataBase.ToUpper()
@@ -93,15 +93,18 @@ $SitesInfo=Invoke-Command -ComputerName $Servers -Credential $cred  -ScriptBlock
 }
 Switch($OutputType){
   'Console'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId' | Format-Table -AutoSize -Force}
-  'HTML'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridHtml}
+  'HTML'{  
+          $Temp=[Environment]::GetFolderPath('MyDocuments')
+          $Temp=$Temp + '\FoxSitesInformation.HTML'
+          $SitesInfo | Out-HtmlView  -FilePath $Temp -DisablePaging -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' -FixedHeader -AutoSize -SearchHighlight -OrderMulti -ResponsivePriorityOrder ('IIS Server') -DefaultSortOrder Ascending}
   'CSV'{
     Add-Type -AssemblyName System.Windows.Forms
     $browser = New-Object -TypeName System.Windows.Forms.FolderBrowserDialog
     $null = $browser.ShowDialog()
     $Path=$browser.SelectedPath
     if($Path){
-      if(Test-Path -Path "$Path\IISSitesInformation.csv"){Remove-Item -Path "$Path\IISSitesInformation.csv" -Force}
-      $SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-File -FilePath "$Path\IISSitesInformation.csv"}
+      if(Test-Path -Path "$Path\FoxSitesInformation.csv"){Remove-Item -Path "$Path\FoxSitesInformation.csv" -Force}
+      $SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-File -FilePath "$Path\FoxSitesInformation.csv"}
     Else {Write-Host -Object 'No File Selected. Oborting.' -ForegroundColor Red}
     exit}
     
@@ -115,8 +118,8 @@ Switch($OutputType){
       $null = $browser.ShowDialog()
       $Path=$browser.SelectedPath
       if($Path){
-        if(Test-Path -Path "$Path\IISSitesInformation.xlsx"){Remove-Item -Path "$Path\IISSitesInformation.xlsx" -Force}
-        $SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Export-Excel -Path "$Path\IISSitesInformation.xlsx" -Title 'Your Fox IIS Sites Information' -WorksheetName (Get-Date -Format 'dd/MM/yyyy') -TitleBold -AutoSize -FreezeTopRowFirstColumn -TableName SitesInformation -Show}
+        if(Test-Path -Path "$Path\FoxSitesInformation.xlsx"){Remove-Item -Path "$Path\FoxSitesInformation.xlsx" -Force}
+        $SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Export-Excel -Path "$Path\FoxSitesInformation.xlsx" -Title 'Your Fox Sites Information' -WorksheetName (Get-Date -Format 'dd/MM/yyyy') -TitleBold -AutoSize -FreezeTopRowFirstColumn -TableName SitesInformation -Show}
       Else {Write-Host -Object 'No File Selected. Oborting.' -ForegroundColor Red}
       exit}
   'QuickReview'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridView -Title 'Your Fox IIS Sites Information'} 
@@ -125,3 +128,6 @@ Switch($OutputType){
     Stop-service -Name WinRM
   }
 }
+
+
+Get-FoxSitesInformation -OutputType HTML
