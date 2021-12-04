@@ -165,6 +165,3 @@ Switch($OutputType){
    Stop-service -Name WinRM
   }
 }
-
-
-Get-FoxSitesInformation -OutputType HTML
