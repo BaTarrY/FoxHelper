@@ -31,8 +31,8 @@ function Get-FoxSitesInformation
 
 $WrinRMStatus=Get-Service -Name WinRM |Select-Object -ExpandProperty Status
 if($WrinRMStatus -eq 'Stopped'){
-    Start-Service -Name WinRM
-  }
+  Start-Service -Name WinRM
+ }
 
 if (!($Servers)) {
 $ServersPath=[Environment]::GetFolderPath('MyDocuments')
@@ -55,8 +55,6 @@ $SQLQuery='select value as [FoxVersion],UserDataSourcesNew.ServerName as [LDSSer
 from SystemConfiguration 
 left join UserDataSourcesNew on UserDataSourcesNew.UsersContainerDistinguishedName=''CN=Fox,CN=OuTree,DC=Fox,DC=Bks''
 where SystemConfiguration.property=''version'''
-
-Get-Service -Name WinRM | start-service 
 
 $SitesInfo=Invoke-Command -ComputerName $Servers -Credential $cred  -ScriptBlock{
 ##Remote Start Here
@@ -119,7 +117,23 @@ Switch($OutputType){
   'HTML'{  
           $Temp=[Environment]::GetFolderPath('MyDocuments')
           $Temp=$Temp + '\FoxSitesInformation.HTML'
-          $SitesInfo | Out-HtmlView  -FilePath $Temp -DisablePaging -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' -FixedHeader -AutoSize -SearchHighlight -OrderMulti -ResponsivePriorityOrder ('IIS Server') -DefaultSortOrder Ascending -Title 'Fox Sites Information' -Filtering}
+          $SitesInfo | Out-HtmlView  -FilePath $Temp -DisablePaging -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' -FixedHeader -AutoSize -SearchHighlight -OrderMulti -ResponsivePriorityOrder ('IIS Server') -DefaultSortOrder Ascending -Title 'Fox Sites Information' -Filtering -PreventShowHTML
+          $HTMLContent=Get-Content -Path $Temp 
+          $HTMLContent=$HTMLContent -replace '<head>','<head>
+          <!-- DisableCaching -->
+          <meta http-equiv="cache-control" content="no-cache, must-revalidate, post-check=0, pre-check=0" />
+          <meta http-equiv="cache-control" content="max-age=0" />
+          <meta http-equiv="expires" content="0" />
+          <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+          <meta http-equiv="pragma" content="no-cache" />
+          <!-- End OF DisableCaching -->
+          '
+          $date=Get-Date -Format "dddd dd/MM/yyyy HH:mm"
+          $replace='<!-- End OF DisableCaching -->' + '
+          Updated at: ' + $date
+          $HTMLContent=$HTMLContent -replace '<!-- End OF DisableCaching -->',$replace | Out-File -FilePath $temp -Force
+          Invoke-Item -Path $temp
+        }
   'CSV'{
     Add-Type -AssemblyName System.Windows.Forms
     $browser = New-Object -TypeName System.Windows.Forms.FolderBrowserDialog
@@ -148,6 +162,9 @@ Switch($OutputType){
   'QuickReview'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridView -Title 'Your Fox IIS Sites Information'} 
   }
   if($WrinRMStatus -eq 'Stopped'){
-    Stop-service -Name WinRM
+   Stop-service -Name WinRM
   }
 }
+
+
+Get-FoxSitesInformation -OutputType HTML
