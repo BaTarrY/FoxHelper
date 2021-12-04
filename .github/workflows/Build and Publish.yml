@@ -6,13 +6,13 @@ name: Pack to Powershell Gallery
 on:
   push:
     branches:
-      - Pre-Release
+      - Production
     paths:
       - 'FoxHelper/**'
   pull_request:
     types: [closed]
     branches:
-      - Pre-Release
+      - Production
     paths:
       - 'FoxHelper/**'
 
