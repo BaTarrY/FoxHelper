@@ -1,5 +1,28 @@
 function Get-FoxSitesInformation
 {
+  <#
+  .SYNOPSIS
+  CREATE A TABLE WITH INFORMATION ABOUT FOX SITES.
+
+  .PARAMETER SecuredCredentials
+  IF NOT SUPPLIED, ASKSF OR CREDENTIALS
+  IF SUPPLIED, USE THAT SUPPLIED CREDENTIALS
+  
+  .PARAMETER Servers
+  IF NOT SUPPLIED, CHECK FOR FILE "IISServers.csv" IN DOCUMNETS FOLDER THAT INCLUDES SERVER NAMES
+    IF IISServers.csv IS NOT FOUND, ASKS FOR SERVERS AND SAVE TO IISServers.csv FILE AT CHOSEN Location
+  IF SUPPLIED USE THAT SUPPLIED SERVERS.
+  
+  .PARAMETER OutputType
+  HTML: CREATED HTML FILE WITH TABLE
+  CSV: CREATED CSV FILE AT CHOSEN Location.
+  EXCEL: CREATE XLSX FILE AT CHOSEN Location
+  QUICKREVIEW: OUTPUT RESULTS TO CONSOLE
+  
+  .EXAMPLE
+  Get-FoxSitesInformation -OutputType HTML
+
+  #>
     param (
       [securestring]$SecuredCredentials,
       [Parameter(ValueFromPipeline)]$Servers,
@@ -96,7 +119,7 @@ Switch($OutputType){
   'HTML'{  
           $Temp=[Environment]::GetFolderPath('MyDocuments')
           $Temp=$Temp + '\FoxSitesInformation.HTML'
-          $SitesInfo | Out-HtmlView  -FilePath $Temp -DisablePaging -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' -FixedHeader -AutoSize -SearchHighlight -OrderMulti -ResponsivePriorityOrder ('IIS Server') -DefaultSortOrder Ascending}
+          $SitesInfo | Out-HtmlView  -FilePath $Temp -DisablePaging -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' -FixedHeader -AutoSize -SearchHighlight -OrderMulti -ResponsivePriorityOrder ('IIS Server') -DefaultSortOrder Ascending -Title 'Fox Sites Information' -Filtering}
   'CSV'{
     Add-Type -AssemblyName System.Windows.Forms
     $browser = New-Object -TypeName System.Windows.Forms.FolderBrowserDialog
@@ -128,6 +151,3 @@ Switch($OutputType){
     Stop-service -Name WinRM
   }
 }
-
-
-Get-FoxSitesInformation -OutputType HTML
