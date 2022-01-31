@@ -51,7 +51,7 @@ PowerShellVersion = '5.1'
 # ProcessorArchitecture = ''
 
 # Modules that must be imported into the global environment prior to importing this module
-RequiredModules = @(@{ModuleName = 'ImportExcel'; ModuleVersion = '7.3.1'; },@{ModuleName = 'PSWriteHTML'; ModuleVersion = '0.0.167'; })
+RequiredModules = @(@{ModuleName = 'ImportExcel'; ModuleVersion = '7.3.1'; })
 
 # Assemblies that must be loaded prior to importing this module
 # RequiredAssemblies = @()
