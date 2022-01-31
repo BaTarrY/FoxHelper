@@ -28,12 +28,7 @@ function Get-FoxSitesInformation
       [Parameter(ValueFromPipeline)]$Servers,
       [Parameter(Mandatory)][ValidateSet('Console', 'QuickReview','HTML', 'Excel','CSV')]$OutputType
     )
-$WrinRMStartupType=Get-Service -Name WinRM |Select-Object -ExpandProperty StartupType
-Set-Service -Name WinRM -StartupType 'Automatic'
-$WrinRMStatus=Get-Service -Name WinRM |Select-Object -ExpandProperty Status
-if($WrinRMStatus -eq 'Stopped'){
-  Start-Service -Name WinRM
- }
+
 
 if (!($Servers)) {
 $ServersPath=[Environment]::GetFolderPath('MyDocuments')
@@ -162,10 +157,5 @@ Switch($OutputType){
       exit}
   'QuickReview'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridView -Title 'Your Fox IIS Sites Information'} 
   }
-  Set-Service -Name 'WinRM' -StartupType $WrinRMStartupType
-  if($WrinRMStatus -eq 'Stopped'){
-   Stop-service -Name WinRM
-  }
+  
 }
-
-Get-FoxSitesInformation -OutputType HTML
