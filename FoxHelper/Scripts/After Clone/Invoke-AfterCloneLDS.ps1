@@ -1,8 +1,10 @@
 
 #UserParemeters
 $SiteName = 'Site.Domain'
+#$ResetALLUsersPasswords='New Users Passwords'
+    #Not Being Performed By default. Uncomment the line above to reset passwords for all users in the site.
 #$NewAdminPassword='New Admin Password'    
-#Not Being Performed By default. Uncomment the line above set new admin password.
+    #Not Being Performed By default. Uncomment the line above set new admin password.
 
 
 
@@ -162,7 +164,17 @@ Try {
 Catch {
     Write-host "An Error occured during validating LDS. See full expection below.`nExecption:"$Error[0].Exception"`nTargetObject:"$Error[0].TargetObject"`nInvocationInfo:"$Error[0].InvocationInfo -ForegroundColor Red
 }
-
+if($ResetALLUsersPasswords)
+{
+    Try {
+        Get-ADUser -Filter * -SearchBase "CN=Fox,CN=OuTree,DC=Fox,DC=Bks" -Server $LDS | Set-ADAccountPassword -Reset -NewPassword (ConvertTo-SecureString -AsPlainText $ResetALLUsersPasswords -Force) -Server $LDS
+        Write-Host "Successfully reset all users passwords to $NewAdminPassword." -ForegroundColor Green
+        Start-Sleep -Seconds 2
+    }
+    Catch {
+        Write-host "An Error occured during reset all users passwords. See full expection below.`nExecption:"$Error[0].Exception"`nTargetObject:"$Error[0].TargetObject"`nInvocationInfo:"$Error[0].InvocationInfo -ForegroundColor Red
+    }
+    }
 if ($NewAdminPassword) {
 
     Try {
