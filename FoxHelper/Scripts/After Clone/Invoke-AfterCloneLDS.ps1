@@ -110,39 +110,13 @@ Catch {
 }
 
 
-Try {
+
     [string]$Ownership1 = dsacls \\$LDS\CN=Configuration, CN= { 19A0FDA6-AB0D-41C4-BCC1-4D7C9E5D0EDA } /takeOwnership
     [string]$Ownership2 = dsacls \\$LDS\CN=OuTree, DC=Fox, DC=Bks /takeOwnership
     [string]$Ownership3 = dsacls \\$LDS\CN=Schema, CN=Configuration, CN= { 19A0FDA6-AB0D-41C4-BCC1-4D7C9E5D0EDA } /takeOwnership
-    if (($Ownership1 -like '*The command completed successfully') -and ($Ownership2 -like '*The command completed successfully') -and ($Ownership3 -like '*The command completed successfully')) {
-        Write-Host 'Successfully set LDS Ownership' -ForegroundColor Green
-        Start-Sleep -Seconds 2
-    }
-    else {
-        Write-Host 'An unexpected Error occured during LDS Ownership transfer. Exiting Script' -ForegroundColor Red
-        exit
-    }
-}
-Catch {
-    Write-host "An Error occured during LDS Ownership transfer. See full expection below.`nExecption:"$Error[0].Exception"`nTargetObject:"$Error[0].TargetObject"`nInvocationInfo:"$Error[0].InvocationInfo -ForegroundColor Red
-}
-
-Try {
     [string]$Ownership1 = dsacls \\$LDS\CN=Configuration, CN= { 19A0FDA6-AB0D-41C4-BCC1-4D7C9E5D0EDA } /G "$User":GA /I:T
     [string]$Ownership2 = dsacls \\$LDS\CN=OuTree, DC=Fox, DC=Bks /G "$User":GA /I:T
     [string]$Ownership3 = dsacls \\$LDS\CN=Schema, CN=Configuration, CN= { 19A0FDA6-AB0D-41C4-BCC1-4D7C9E5D0EDA } /G "$User":GA /I:T
-    if (($Ownership1 -like '*The command completed successfully') -and ($Ownership2 -like '*The command completed successfully') -and ($Ownership3 -like '*The command completed successfully')) {
-        Write-Host "Successfully grant LDS accsess to user $User" -ForegroundColor Green
-        Start-Sleep -Seconds 2
-    }
-    else {
-        Write-Host 'An unexpected Error occured during LDS premission granting to user $User. Exiting Script' -ForegroundColor Red
-        exit
-    }
-}
-Catch {
-    Write-host "An Error occured during LDS premission granting to user $User. See full expection below.`nExecption:"$Error[0].Exception"`nTargetObject:"$Error[0].TargetObject"`nInvocationInfo:"$Error[0].InvocationInfo -ForegroundColor Red
-}
 Remove-Variable -Name Ownership1
 Remove-Variable -Name Ownership2
 Remove-Variable -Name Ownership3
