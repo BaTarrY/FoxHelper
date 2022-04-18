@@ -142,7 +142,7 @@ if($ResetALLUsersPasswords)
 {
     Try {
         Get-ADUser -Filter * -SearchBase "CN=Fox,CN=OuTree,DC=Fox,DC=Bks" -Server $LDS | Set-ADAccountPassword -Reset -NewPassword (ConvertTo-SecureString -AsPlainText $ResetALLUsersPasswords -Force) -Server $LDS
-        Write-Host "Successfully reset all users passwords to $NewAdminPassword." -ForegroundColor Green
+        Write-Host "Successfully reset all users passwords to $ResetALLUsersPasswords." -ForegroundColor Green
         Start-Sleep -Seconds 2
     }
     Catch {
