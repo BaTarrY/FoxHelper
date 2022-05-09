@@ -65,8 +65,7 @@
 		# Go through each file
 		foreach($String in $Strings)
 		{		
-			$IsBinary = Test-IsFileBinary -FilePath $String.Name
-
+  = Get-Content -Path  -Encoding
 			# Go through each group
 			foreach($Group in $String.Group)
 			{	
@@ -74,7 +73,7 @@
 					Filename = $Group.Filename
 					Path = $Group.Path
 					LineNumber = $Group.LineNumber
-					IsBinary = $IsBinary
+				
 					Matches = $Group.matches
 				}
 			}   
