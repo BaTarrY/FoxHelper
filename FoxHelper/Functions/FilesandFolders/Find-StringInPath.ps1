@@ -65,7 +65,6 @@
 		# Go through each file
 		foreach($String in $Strings)
 		{		
-  = Get-Content -Path  -Encoding
 			# Go through each group
 			foreach($Group in $String.Group)
 			{	
@@ -73,7 +72,6 @@
 					Filename = $Group.Filename
 					Path = $Group.Path
 					LineNumber = $Group.LineNumber
-				
 					Matches = $Group.matches
 				}
 			}   
