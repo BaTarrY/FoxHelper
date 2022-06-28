@@ -72,7 +72,8 @@
 					Filename = $Group.Filename
 					Path = $Group.Path
 					LineNumber = $Group.LineNumber
-					Matches = $Group.matches
+					Matches = $Group.Matches.Captures
+					Line = $Group.Line
 				}
 			}   
 		}
@@ -82,3 +83,5 @@
 		
 	}
 }
+
+Find-StringInPath -Path 'C:\Users\eliorm\Documents\4ts' -Search 'b.Event_Name'

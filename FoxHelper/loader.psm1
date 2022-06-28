@@ -7,7 +7,7 @@
 
 
 # LOADING ALL FUNCTION DEFINITIONS:
-
+. $PSScriptRoot\Functions\FilesandFolders\FilePicker.ps1
 . $PSScriptRoot\Functions\FilesandFolders\Find-StringInPath.ps1
 . $PSScriptRoot\Functions\FilesandFolders\Invoke-RemoveFiles.ps1
 . $PSScriptRoot\Functions\FilesandFolders\Test-IsFileBinary.ps1
