@@ -159,3 +159,20 @@ Switch($OutputType){
   }
   
 }
+
+function invoke-VerifyOutputType
+{
+    param (
+      [Parameter(HelpMessage='OutputType must macth 1,2,3 or 4',Mandatory,ValueFromPipeline)][ValidateSet(1, 2, 3, 4)]$OutputType
+    )
+  return $OutputType
+}
+
+
+$OutputType=Read-Host -Prompt "Choose an output Type.`nPress number to select`n1. HTML`n2. CSV`n3. EXCEL`n4. QUICKREVIEW (Export to console)`nYour Selection is" | invoke-VerifyOutputType
+Switch($OutputType){
+  '1'{$OutputType='HTML'}
+  '2'{$OutputType='CSV'}
+  '3'{$OutputType='EXCEL'}
+  '4'{$OutputType='QUICKREVIEW'}
+}
