@@ -158,9 +158,7 @@ Switch($OutputType){
   'QuickReview'{$SitesInfo |Select-Object -ExcludeProperty 'PSComputerName','RunspaceId','PSShowComputerName' | Out-GridView -Title 'Your Fox IIS Sites Information'} 
   }
   
-}
-
-function invoke-VerifyOutputType
+  function invoke-VerifyOutputType
 {
     param (
       [Parameter(HelpMessage='OutputType must macth 1,2,3 or 4',Mandatory,ValueFromPipeline)][ValidateSet(1, 2, 3, 4)]$OutputType
@@ -176,3 +174,5 @@ Switch($OutputType){
   '3'{$OutputType='EXCEL'}
   '4'{$OutputType='QUICKREVIEW'}
 }
+}
+
