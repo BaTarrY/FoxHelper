@@ -83,5 +83,3 @@
 		
 	}
 }
-
-Find-StringInPath -Path 'C:\Users\eliorm\Documents\4ts' -Search 'b.Event_Name'
