@@ -38,6 +38,7 @@ jobs:
           import-module ImportExcel
           import-module PowerShellGet
           'Importing Module'
+          get-childitme -path '/home/runner/work/FoxHelper/FoxHelper'
           Import-Module /home/runner/work/FoxHelper/FoxHelper/FoxHelper.psd1 -verbos
           'Getting last version from PS Gallery'
           [string]$Version=Find-Module -Name FoxHelper | Where-Object -Property Repository -EQ PSGallery |Select-Object -ExpandProperty Version
