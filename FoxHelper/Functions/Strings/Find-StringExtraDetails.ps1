@@ -1,4 +1,4 @@
-﻿function Find-StringInPath
+﻿function Find-StringExtraDetails
 {
 
 <#

@@ -8,12 +8,12 @@
 
 # LOADING ALL FUNCTION DEFINITIONS:
 . $PSScriptRoot\Functions\FilesandFolders\FilePicker.ps1
-. $PSScriptRoot\Functions\FilesandFolders\Find-StringInPath.ps1
 . $PSScriptRoot\Functions\FilesandFolders\Invoke-RemoveFiles.ps1
-. $PSScriptRoot\Functions\FilesandFolders\Test-IsFileBinary.ps1
 . $PSScriptRoot\Functions\LDS\Reset-UserPassword.ps1
 . $PSScriptRoot\Functions\Misc\Get-ValidIsraelID.ps1
 . $PSScriptRoot\Functions\Strings\Remove-String.ps1
+. $PSScriptRoot\Functions\Strings\Find-String.ps1
+. $PSScriptRoot\Functions\Strings\Find-StringExtraDetails.ps1
 . $PSScriptRoot\Functions\WebServices\Get-FoxToken.ps1
 
 # Loading ALL SCRIPTS DEFINITIONS:
