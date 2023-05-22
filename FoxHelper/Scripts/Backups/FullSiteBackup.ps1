@@ -2,7 +2,6 @@ $SiteName=''
 $Destination='D:\Backups'
 
 Import-Module WebAdministration -Verbose:$false
-
 function Get-ValidSite {
     param ([Parameter(Mandatory, HelpMessage = 'Site your are cloneing', Position = 0, ValueFromPipeline)]$SiteName)
     If (!(Test-Path -Path "IIS:\Sites\$SiteName"  )) {
