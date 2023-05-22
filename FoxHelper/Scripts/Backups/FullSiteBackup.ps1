@@ -3,7 +3,7 @@ $Destination='D:\Backups'
 
 Import-Module WebAdministration -Verbose:$false
 function Get-ValidSite {
-    param ([Parameter(Mandatory, HelpMessage = 'Site your are cloneing', Position = 0, ValueFromPipeline)]$SiteName)
+    param ([Parameter(Mandatory, HelpMessage = 'Site your are validating', Position = 0, ValueFromPipeline)]$SiteName)
     If (!(Test-Path -Path "IIS:\Sites\$SiteName"  )) {
         Write-Host "The site '$SiteName' does not exist in this server`nPlease enter a vaild site:" -ForegroundColor Yellow
         $SiteName = read-Host
