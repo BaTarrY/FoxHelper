@@ -1,5 +1,11 @@
 $SiteName=''
 $Destination='D:\Backups'
+$Date = Get-Date -Format 'dd-MM-yyyy HH-mm'
+
+#Create backup folder
+$BackupPath = $Destination + "\$Date"
+$NULL = new-item -Path $Destination -ItemType Directory
+
 
 Import-Module WebAdministration -Verbose:$false
 function Get-ValidSite {
@@ -13,6 +19,8 @@ function Get-ValidSite {
 }
 
 $SiteName = Get-ValidSite -SiteName $SiteName
+
+
 
 
 [string]$CodePath=((Get-ItemProperty "IIS:\Sites\$SiteName").PhysicalPath) 
