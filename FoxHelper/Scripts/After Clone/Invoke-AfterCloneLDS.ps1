@@ -71,7 +71,7 @@ Try {
             $InstallLocation = Get-ItemPropertyValue -Path "HKLM:\SOFTWARE\Wow6432Node\BKS\Fox\$SiteName" -Name Location
         }
         $QueryAdminLogin = 'SELECT LoginName from Users where ID=0'
-        $AdminLoginName = Invoke-Sqlcmd  -ServerInstance $SQLServer -Database $DataBase -Query $QueryAdminLogin | Select-Object -ExpandProperty LoginName
+        $AdminLoginName = Invoke-Sqlcmd  -ServerInstance $SQLServer -Database $DataBase -Query $QueryAdminLogin -Encrypt $false | Select-Object -ExpandProperty LoginName
     }
     Catch {
         Write-host "An Error occured Quering Database for the LoginName of the Admin user. See full expection below.`nExecption:"$Error[0].Exception"`nTargetObject:"$Error[0].TargetObject"`nInvocationInfo:"$Error[0].InvocationInfo -ForegroundColor Red

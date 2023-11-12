@@ -10,6 +10,14 @@
        [Switch]$RunAsDiffrentUser
 		 )
 
+     if($RunAsDiffrentUser -eq $True){    
+      $ServerUser=Get-Credential -Message "Enter User Name and Password for a Domain/Local user with suffienct permissions for server '$Server' and it's LDS" -ErrorAction Stop
+     IF(!($ServerUser))
+       {
+       Write-Error -Category InvalidData -Exception 'User Credtials were not supplied. Exiting.' -ErrorId 0 -TargetObject Credentials -Message "Using the paremeter 'RunAsDiffrentUser' a user has to be supplied.`nSupply User Name and Password for a Domain/Local user with suffienct permissions for server '$Server' and it's LDS" -RecommendedAction "Remove the swithc 'RunAsDiffrentUser' or Supply User Name and Password for a Domain/Local user with suffienct permissions for server '$Server'"
+       Exit
+       }}
+
     $NewPassword=ConvertTo-SecureString -AsPlainText $NewPassword -Force -ErrorAction Stop 
     $LDS=$Server+':'+$LDS_Port
     IF($Server -eq 'LocalHost' -and $RunAsDiffrentUser -eq $False) #This server & This user
@@ -20,12 +28,7 @@
     }
     ELSEIF($Server -eq 'LocalHost' -and $RunAsDiffrentUser -eq $True) #This server & Other user
     {
-      $ServerUser=Get-Credential -Message "Enter User Name and Password for a Domain/Local user with suffienct permissions for server '$Server' and it's LDS" -ErrorAction Stop
-      IF(!($ServerUser))
-        {
-        Write-Error -Category InvalidData -Exception 'User Credtials were not supplied. Exiting.' -ErrorId 0 -TargetObject Credentials -Message "Using the paremeter 'RunAsDiffrentUser' a user has to be supplied.`nSupply User Name and Password for a Domain/Local user with suffienct permissions for server '$Server' and it's LDS" -RecommendedAction "Remove the swithc 'RunAsDiffrentUser' or Supply User Name and Password for a Domain/Local user with suffienct permissions for server '$Server'"
-        Exit
-        }
+  
       Write-Host "Attempting reset password for user '$UserName'"
       Set-ADAccountPassword -Credential $ServerUser "CN=$UserName,CN=Fox,CN=OuTree,DC=Fox,DC=Bks" -Reset -NewPassword $NewPassword -server $LDS -ErrorAction Stop
       Write-Host "Reset password for user '$UserName' finished Successfully" -ForegroundColor Green
@@ -38,12 +41,7 @@
     }
     ELSEIF($Server -ne 'LocalHost' -and $RunAsDiffrentUser -eq $True) #Other Server & Other User
     {
-      $ServerUser=Get-Credential -Message "Enter User Name and Password for a Domain/Local user with suffienct permissions for server '$Server' and it's LDS" -ErrorAction Stop
-            IF(!($ServerUser))
-        {
-        Write-Error -Category InvalidData -Exception 'User Credtials were not supplied. Exiting.' -ErrorId 0 -TargetObject Credentials -Message "Using the paremeter 'RunAsDiffrentUser' a user has to be supplied.`nSupply User Name and Password for a Domain/Local user with suffienct permissions for server '$Server' and it's LDS" -RecommendedAction "Remove the swithc 'RunAsDiffrentUser' or Supply User Name and Password for a Domain/Local user with suffienct permissions for server '$Server'"
-        Exit
-        }
+
       Write-Host "Attempting reset password for user '$UserName'"
       Invoke-Command -ComputerName $Server -Credential $ServerUser -ScriptBlock {Set-ADAccountPassword "CN=$Using:UserName,CN=Fox,CN=OuTree,DC=Fox,DC=Bks" -Reset -NewPassword $Using:NewPassword -server $Using:LDS -ErrorAction Stop -ErrorVariable $ES} -ErrorAction Stop
       Write-Host "Reset password for user '$UserName' finished Successfully" -ForegroundColor Green
