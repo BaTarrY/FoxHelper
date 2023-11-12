@@ -7,14 +7,15 @@ function Get-FoxLDSUser {
         $Server = '127.0.01',
 
         [Parameter(
-            HelpMessage = 'LDAP Port')]
-        [ValidateNotNullOrEmpty]
+            HelpMessage = 'LDAP Port. Deafult is 389')]
+        [ValidateNotNullOrEmpty()]
         [int]
         $Port = 389,
 
         [Parameter(,
-            HelpMessage = "Search User by one of the following Parameters: Default is UserPrincipalName=LoginName. Alternatives: GivenName=User First Name, Surname=User Last Name, ObjectGUID=User GUID")]
-        [ValidateNotNullOrEmpty]
+            HelpMessage = "Search User by one of the following Parameters: Default is UserPrincipalName=LoginName. 
+            Alternatives: GivenName=User First Name, Surname=User Last Name, ObjectGUID=User GUID")]
+        [ValidateNotNullOrEmpty()]
         [string]
         $SearchBy = 'UserPrincipalName',
         
@@ -22,9 +23,9 @@ function Get-FoxLDSUser {
             Mandatory = $true,
             HelpMessage = 'User to search',
             ValueFromPipeline = $true)]
-        [ValidateNotNullOrEmpty]
+        [ValidateNotNullOrEmpty()]
         [string]
-        $Value
+        $User
     )
 
 
@@ -32,9 +33,8 @@ function Get-FoxLDSUser {
     import-module -Name "ActiveDirectory" -DisableNameChecking -Force
 
     $LDS = $Server + ':' + $Port
-    IF ($SearchBy -eq 'ObjectGUID') { $Filter = $SearchBy + ' -EQ "' + $UserToSearch + '"' }
-    ELSE { $Filter = $SearchBy + ' -like"*' + $UserToSearch + '"' }
+    IF ($SearchBy -eq 'ObjectGUID') { $Filter = $SearchBy + ' -EQ "' + $User + '"' }
+    ELSE { $Filter = $SearchBy + ' -like"*' + $User + '"' }
 
-    Get-ADUser -Server $LDS -SearchBase 'CN=Fox,CN=OuTree,DC=Fox,DC=Bks' -filter $Filter
+    return (Get-ADUser -Server $LDS -SearchBase 'CN=Fox,CN=OuTree,DC=Fox,DC=Bks' -filter $Filter)
 }
-
